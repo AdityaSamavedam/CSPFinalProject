@@ -28,9 +28,9 @@ class Puzzle:
         for ri, row in enumerate(self.puzzle):
             for chi, ch in enumerate(row[0]):
                 if (ri, chi) in self.solved:
-                    print(colored(f"{ch}", "red"),end=" ")
+                    print(colored(f"{ch}", "red"), end=" ")
                 else:
-                    print(colored(f"{ch}", "blue"),end=" ")
+                    print(colored(f"{ch}", "blue"), end=" ")
             print()
 
     def find_word(self):
@@ -88,25 +88,28 @@ class Puzzle:
             for ti in range(4):
                 temp[ti] = ''.join(temp[ti])
                 temp[ti+4] = temp[ti][::-1]
-
             for tx, t in enumerate(temp):
                 if word in str(t):
                     for i in range(0, len(word)):
                         self.solved.append(ranges[tx][str(t).find(word) + i])
                     return True
-        return False
+        return False 
             
     
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--puzzle', help='/home/aditya/vscode/CSPFinalProject/puzzles/ws-1-puzzle.csv')
-    parser.add_argument('--words', help='/home/aditya/vscode/CSPFinalProject/puzzles/ws-1-list.csv')
+    parser.add_argument('--puzzle', help='puzzles/ws-1-puzzle.csv', default='puzzles/ws-1-puzzle.csv')
+    parser.add_argument('--words', help='puzzles/ws-1-list.csv', default='puzzles/ws-1-list.csv')
 
     args = parser.parse_args()
-    p = Puzzle(args)
-    print("\nPROBLEM:")
-    p.output_cli()
+
+    if not args.puzzle or not args.words:
+        print("Please provide both --puzzle and --words arguments.")
+    else:
+        p = Puzzle(args)
+        print("\nPROBLEM:")
+        p.output_cli()
     print("\nSOLUTION:")
     p.find_word()
     p.output_cli()
