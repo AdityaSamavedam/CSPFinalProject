@@ -9,6 +9,7 @@ class Puzzle:
         self.solved = []
 
     def parse_puzzle(self, puzzle_name):
+        # Time Complexity: O(m)
         puzzle = []
         with open(puzzle_name, 'r') as pfile:
             p_reader = csv.reader(pfile)
@@ -17,14 +18,16 @@ class Puzzle:
         return puzzle
     
     def parse_words(self, list_name):
+        # Time Complexity: O(n)
         words = []
         with open(list_name, 'r') as cfile:
             c_reader = csv.reader(cfile)
             for c_row in c_reader:
-                words.append(str(c_row[0]).replace(' ', '')) 
+                words.append(str(c_row[0]).replace(' ', ''))
         return words 
 
     def output_cli(self):
+        # Time Complexity: O(R * C)
         for ri, row in enumerate(self.puzzle):
             for chi, ch in enumerate(row[0]):
                 if (ri, chi) in self.solved:
@@ -34,6 +37,7 @@ class Puzzle:
             print()
 
     def find_word(self):
+        # Time Complexity: O(W * (R * C))
         for word in self.words:
             if self.find_horizontal(word):
                 continue
@@ -43,6 +47,7 @@ class Puzzle:
                 continue
 
     def find_horizontal(self, word):
+        # Time Complexity: O(R * C * W)
         for ri, row in enumerate(self.puzzle):
             if word in str(row):
                 for i in range(0, len(word)):
@@ -56,6 +61,7 @@ class Puzzle:
         return False
 
     def find_vertical(self, word):
+        # Time Complexity: O(R * C * W)
         for char in range(len(self.puzzle[0][0])):
             temp = []
             for col in range(len(self.puzzle)):
@@ -73,6 +79,7 @@ class Puzzle:
         return False
 
     def find_diagonal(self, word):
+        # Time Complexity: O(D * W)
         for a in range(0, len(self.puzzle[0][0])):
             temp = [[] for i in range(8)]
             ranges = [[] for i in range(8)]
@@ -95,8 +102,6 @@ class Puzzle:
                     return True
         return False 
             
-    
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--puzzle', help='puzzles/ws-1-puzzle.csv', default='puzzles/ws-1-puzzle.csv')

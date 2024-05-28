@@ -17,6 +17,7 @@ from api.player import player_api
 # database migrations
 from model.users import initUsers
 from model.players import initPlayers
+from model.puzzle import Puzzle
 
 # setup App pages
 from projects.projects import app_projects # Blueprint directory import projects definition
@@ -67,4 +68,4 @@ app.cli.add_command(custom_cli)
 # this runs the application on the development server
 if __name__ == "__main__":
     # change name for testing
-    app.run(debug=True, host="0.0.0.0", port="8086")
+    app.run(debug=True, host="0.0.0.0", port="8430")
