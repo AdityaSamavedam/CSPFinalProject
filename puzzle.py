@@ -10,6 +10,7 @@ class Puzzle:
 
     def parse_puzzle(self, puzzle_name):
         # Time Complexity: O(m)
+        # Explanation: This method reads a CSV file line by line, where m is the number of rows in the puzzle file.
         puzzle = []
         with open(puzzle_name, 'r') as pfile:
             p_reader = csv.reader(pfile)
@@ -19,6 +20,7 @@ class Puzzle:
     
     def parse_words(self, list_name):
         # Time Complexity: O(n)
+        # Explanation: This method reads a CSV file line by line, where n is the number of words in the words list file.
         words = []
         with open(list_name, 'r') as cfile:
             c_reader = csv.reader(cfile)
@@ -28,6 +30,7 @@ class Puzzle:
 
     def output_cli(self):
         # Time Complexity: O(R * C)
+        # Explanation: This method iterates over each character in the puzzle (R rows and C columns).
         for ri, row in enumerate(self.puzzle):
             for chi, ch in enumerate(row[0]):
                 if (ri, chi) in self.solved:
@@ -38,6 +41,7 @@ class Puzzle:
 
     def find_word(self):
         # Time Complexity: O(W * (R * C))
+        # Explanation: This method checks each word in the words list (W words) against the entire puzzle (R rows and C columns).
         for word in self.words:
             if self.find_horizontal(word):
                 continue
@@ -48,6 +52,7 @@ class Puzzle:
 
     def find_horizontal(self, word):
         # Time Complexity: O(R * C * W)
+        # Explanation: For each word, this method iterates over each row (R rows). For each row, it checks for the word in the string representation of the row, which takes O(C) time. This is repeated for W words.
         for ri, row in enumerate(self.puzzle):
             if word in str(row):
                 for i in range(0, len(word)):
@@ -62,6 +67,7 @@ class Puzzle:
 
     def find_vertical(self, word):
         # Time Complexity: O(R * C * W)
+        # Explanation: For each word, this method iterates over each column (C columns). For each column, it constructs a string from top to bottom (R rows), which takes O(R) time. This is repeated for W words.
         for char in range(len(self.puzzle[0][0])):
             temp = []
             for col in range(len(self.puzzle)):
@@ -80,6 +86,7 @@ class Puzzle:
 
     def find_diagonal(self, word):
         # Time Complexity: O(D * W)
+        # Explanation: For each word, this method checks along the diagonals of the puzzle. The number of diagonals D is approximately equal to R + C. For each diagonal, constructing the string takes O(min(R, C)) time. This is repeated for W words.
         for a in range(0, len(self.puzzle[0][0])):
             temp = [[] for i in range(8)]
             ranges = [[] for i in range(8)]
