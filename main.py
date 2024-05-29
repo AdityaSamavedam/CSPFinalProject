@@ -17,7 +17,6 @@ from api.player import player_api
 # database migrations
 from model.users import initUsers
 from model.players import initPlayers
-from model.puzzle import Puzzle
 
 # setup App pages
 from projects.projects import app_projects # Blueprint directory import projects definition
